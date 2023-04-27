@@ -13,7 +13,7 @@ const InputBox = () => {
   return (
     <SafeAreaView edges={['bottom']} style={style.container}>
 
-      <AntDesign name='plus' size={16} color='royalblue' />
+      <AntDesign name='plus' size={16} color='royalblue' style={{margin:5}} />
 
       <TextInput 
       style={style.input}
@@ -39,17 +39,18 @@ const style = StyleSheet.create({
         flex:1,
         backgroundColor:'white',
         padding:5,
-        marginHorizontal:10,
+        marginHorizontal:5,
         borderRadius:50,
         borderColor:'lightgray',
         borderWidth:StyleSheet.hairlineWidth,
-        paddingHorizontal:10,
+        paddingHorizontal:5,
         fontSize:16,
     },
     send:{
         backgroundColor:'royalblue',
         padding:7,
         borderRadius:15,
+        margin:5,
         overflow:'hidden',
     },
 
