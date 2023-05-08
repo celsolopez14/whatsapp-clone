@@ -3,7 +3,7 @@ import {Ionicons, Entypo} from '@expo/vector-icons'
 import StatusScreen from '../../screens/StatusScreen';
 import CallsScreen from '../../screens/CallsScreen';
 import CameraScreen from '../../screens/CameraScreen';
-import ChatsScreen from '../../screens/ChatsScreen';
+import ChatsScreen from '../../screens/ChatsScreen/ChatsScreen';
 import SettingsScreen from '../../screens/SettingsScreen';
 
 const Tab = createBottomTabNavigator();

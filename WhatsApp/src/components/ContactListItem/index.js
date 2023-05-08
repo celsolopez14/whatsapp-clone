@@ -1,15 +1,46 @@
 import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
-
+import {API, graphqlOperation, Auth} from 'aws-amplify';
+import { createChatRoom, createUserChatRoom } from '../../graphql/mutations';
 import { useNavigation } from '@react-navigation/native';
+import {getCommonChatRoom} from '../../services/chatRoomService';
 
 
 const ContactListItem = ({ user }) => {
 
     const navigation = useNavigation();
 
+    const onPress = async () =>{
+
+        const existingChatRoom = await getCommonChatRoom(user.id);
+
+        if(existingChatRoom){
+            navigation.navigate('Chat', {id: existingChatRoom.id});
+            return
+        }
+
+        const newChatRoomData = await API.graphql(graphqlOperation(createChatRoom, {input: {}})
+        );
+
+        if (!newChatRoomData.data?.createChatRoom){
+            console.log('Error creating the chat.');
+        }
+
+        const newChatRoom = newChatRoomData.data?.createChatRoom;
+
+        await API.graphql(graphqlOperation(createUserChatRoom, {input: {chatRoomId: newChatRoom.id, userId: user.id }})
+        );
+
+        const authUser = await Auth.currentAuthenticatedUser();
+        await API.graphql(graphqlOperation(createUserChatRoom, {input: {chatRoomId: newChatRoom.id, userId: authUser.attributes.sub }})
+        );
+
+        navigation.navigate('Chat', {id: newChatRoom.id});
+
+    };
+
     return (
         <Pressable
-        onPress={() =>{}}
+        onPress={onPress}
         style={style.container}> 
             <Image
             source={{uri:user.image}}
