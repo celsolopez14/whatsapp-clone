@@ -15,6 +15,7 @@ const ChatListItem = ({ chat }) => {
             const authUser = await Auth.currentAuthenticatedUser();
             const userItem = chat.users.items.find(item => item.user.id !== authUser.attributes.sub);
 
+
             setUser(userItem?.user);
         };
 
@@ -36,10 +37,10 @@ const ChatListItem = ({ chat }) => {
             <View style={style.content}>
                 <View style={style.row}>
                     <Text numberOfLines={1} style={style.name}>{user?.name}</Text>
-                    <Text style={style.subTitle}>{dayjs(chat.lastMessage?.createdAt).fromNow(true)}</Text>
+                    <Text style={style.subTitle}>{dayjs(chat.LastMessage?.createdAt).fromNow(true)}</Text>
                 </View>
                 <Text numberOfLines={2} style={style.subTitle}>
-                    {chat.lastMessage?.text}
+                    {chat.LastMessage?.text}
                     </Text>
             </View>
         </Pressable>
